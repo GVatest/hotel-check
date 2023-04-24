@@ -3,7 +3,8 @@
 > Simple app to track hotel rental stats
 
 ## Screenshots
-<img width="1078" alt="Screenshot 2023-04-24 at 07 53 54" src="https://user-images.githubusercontent.com/66703210/233998354-df988939-1409-4a5c-ab26-fe072acfc9ac.png">
+
+<img width="1078" alt="Screenshot 2023-04-24 at 16 29 54" src="https://user-images.githubusercontent.com/66703210/234009772-b4deb5e7-a77a-4dd3-bbfe-5d87f2680cf7.png">
 
 ## Demo
 
