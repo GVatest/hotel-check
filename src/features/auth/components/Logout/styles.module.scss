@@ -1,0 +1,10 @@
+.logout {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  cursor: pointer;
+
+  span {
+    font-size: 1.6rem;
+  }
+}

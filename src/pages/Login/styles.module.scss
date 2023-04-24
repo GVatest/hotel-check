@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/src/assets/background/background-login.webp");
+    background-size: cover;
+
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+
+    opacity: 0.6;
+    z-index: -1;
+  }
+}

@@ -1,0 +1,14 @@
+@import "./shared/sass/main.scss";
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+  font-weight: 500;
+  color: #fff;
+}
+
+body {
+    background-color: #fff;
+    position: relative;
+    color: $color-default;
+}

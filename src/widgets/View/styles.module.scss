@@ -1,0 +1,37 @@
+.view {
+  grid-area: view;
+  max-height: 902px;
+
+  .header {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 28px;
+
+    &__item {
+      display: flex;
+      column-gap: 20px;
+      align-items: center;
+
+      h2 {
+        font-size: $font-size-headings-large;
+      }
+      span {
+        font-size: $font-size-headings-medium;
+      }
+    }
+    &__favourites {
+      margin: 28px 0;
+
+      font-size: 17px;
+      font-weight: 300;
+      
+      &_count {
+        font-weight: 500;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.wrapper {
+  max-width: 1048px;
+  margin: 0 auto;
+
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 360px auto;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas:
+    "search view"
+    "favourites view";
+}

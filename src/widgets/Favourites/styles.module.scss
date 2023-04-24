@@ -1,0 +1,59 @@
+.favourites {
+  grid-area: favourites;
+
+  &__header {
+    font-size: $font-size-headings-medium;
+    margin-bottom: $mb-default;
+  }
+
+  &__filters {
+    margin-bottom: $mb-default;
+    display: flex;
+
+    .filter {
+      width: 90px;
+      height: 30px;
+
+      margin-right: 8px;
+      font-size: 1.4rem;
+      padding: 4px 8px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 9px;
+
+      border: 1px solid #41522E;
+      background: #FFFFFF;
+      border-radius: 4px;
+      opacity: 0.6;
+
+      &__active {
+        opacity: 1;
+      }
+
+      cursor: pointer;
+
+
+      &__arrows {
+        width: 15px;
+        height: 15px;
+        position: relative;
+
+        .arrow {
+          position: absolute;
+          left: 0;
+        }
+
+        .arrow_top {
+          top: 4;
+          transform: rotate(-90deg);
+        }
+        .arrow_bottom {
+          top: 10px;
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+}
