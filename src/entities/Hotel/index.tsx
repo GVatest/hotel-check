@@ -20,7 +20,7 @@ function Hotel({ hotel, iconSrc }: HotelProps) {
 
   return (
     <div className={styles.hotel}>
-      {iconSrc ? <div className={styles.hotel_icon}></div> : null}
+      {iconSrc ? <div className={styles.hotel_icon}><img src={iconSrc} alt="hotel icon" /></div> : null}
       <div className={styles.hotel__content}>
         <div className={styles.hotel__header}>
           <h3>{hotel.hotelName}</h3>
