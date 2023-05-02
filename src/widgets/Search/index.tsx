@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "app/store/hooks";
 import { search, selectSearchParams } from "features";
 import moment from "moment";
 
+console.log(moment().format("YYYY-MM-DD"));
+
 function DaysInput({
   ...props
 }: InputHTMLAttributes<HTMLInputElement>): React.ReactElement {
@@ -75,6 +77,8 @@ function Search() {
             id='date'
             name='date'
             type='date'
+            min={moment().format("YYYY-MM-DD")}
+            max={moment().add(10, "year").format("YYYY-MM-DD")}
             variant='regular'
           />
           <NumericFormat

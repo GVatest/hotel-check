@@ -14,7 +14,6 @@ function Favourites() {
   const [isDescend, setIsDescend] = useState(false);
 
   const filteredHotels = useMemo(() => {
-    console.log(isDescend);
     return [...hotels].sort((hotelPrev, hotelNext) => {
       if (isRate) {
         return isDescend
