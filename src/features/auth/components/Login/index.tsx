@@ -6,20 +6,30 @@ import { useAppDispatch } from "app/store/hooks";
 import { useEffect } from "react";
 import { api } from "../../api";
 import { setAuth } from "../../store";
+import validator from "validator";
 
 const validate = (values: { email: string; password: string }) => {
   const errors = {} as typeof values;
 
   if (!values.email) {
     errors.email = "Необходимо заполнить";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (!validator.isEmail(values.email)) {
     errors.email = "Некорректный формат email";
   }
 
   if (!values.password) {
     errors.password = "Необходимо заполнить";
-  } else if (values.password.length < 8) {
-    errors.password = "Пароль должен содержать не меньше 8 символов";
+  } else if (
+    !validator.isStrongPassword(values.password, {
+      minLength: 8,
+      minLowercase: 0,
+      minSymbols: 0,
+      minUppercase: 0,
+      minNumbers: 0,
+    }) ||
+    validator.isEmpty(values.password, { ignore_whitespace: true })
+  ) {
+    errors.password = "Неверный формат пароля";
   }
 
   return errors;
