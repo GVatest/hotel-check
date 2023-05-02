@@ -42,7 +42,6 @@ const hotelsSlice = createSlice({
       const favouritesFiltered = state.favourites.filter(
         (hotel) => hotel.hotelId !== payload.hotelId
       );
-      console.log(favouritesFiltered);
       if (favouritesFiltered.length === state.favourites.length) {
         state.favourites.unshift({ ...payload, isFavourite: true });
       } else {

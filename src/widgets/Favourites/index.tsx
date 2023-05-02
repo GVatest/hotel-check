@@ -1,5 +1,5 @@
 import { useAppSelector } from "app/store/hooks";
-import { selectFavourites } from "features";
+import { selectFavourites, selectSearchParams } from "features";
 import { ReactComponent as Arrow } from "assets/icons/arrow-right.svg";
 import { useMemo, useState } from "react";
 import { Layout } from "shared";
@@ -9,19 +9,21 @@ import styles from "./styles.module.scss";
 
 function Favourites() {
   const hotels = useAppSelector(selectFavourites);
+  const { days } = useAppSelector(selectSearchParams);
   const [isRate, setIsRate] = useState(true);
-  const [isDescend, setIsDescend] = useState(true);
+  const [isDescend, setIsDescend] = useState(false);
 
   const filteredHotels = useMemo(() => {
+    console.log(isDescend);
     return [...hotels].sort((hotelPrev, hotelNext) => {
       if (isRate) {
         return isDescend
-          ? hotelPrev.stars - hotelNext.stars
-          : hotelPrev.stars + hotelNext.stars;
+          ? -(hotelPrev.stars - hotelNext.stars)
+          : hotelPrev.stars - hotelNext.stars;
       } else {
         return isDescend
-          ? hotelPrev.priceFrom - hotelNext.priceFrom
-          : hotelPrev.priceFrom + hotelNext.priceFrom;
+          ? -(hotelPrev.priceFrom - hotelNext.priceFrom)
+          : hotelPrev.priceFrom - hotelNext.priceFrom;
       }
     });
   }, [hotels, isRate, isDescend]);
@@ -59,14 +61,14 @@ function Favourites() {
                 strokeWidth='5'
                 width={9}
                 height={6}
-                color={isDescend && isRate ? "#41522E" : "#A7A7A7"}
+                color={!isDescend && isRate ? "#41522E" : "#A7A7A7"}
                 className={`${styles.arrow} ${styles.arrow_top}`}
               />
               <Arrow
                 strokeWidth='5'
                 width={9}
                 height={6}
-                color={!isDescend && isRate ? "#41522E" : "#A7A7A7"}
+                color={isDescend && isRate ? "#41522E" : "#A7A7A7"}
                 className={`${styles.arrow} ${styles.arrow_bottom}`}
               />
             </div>
@@ -83,14 +85,14 @@ function Favourites() {
                 strokeWidth='5'
                 width={9}
                 height={6}
-                color={isDescend && !isRate ? "#41522E" : "#A7A7A7"}
+                color={!isDescend && !isRate ? "#41522E" : "#A7A7A7"}
                 className={`${styles.arrow} ${styles.arrow_top}`}
               />
               <Arrow
                 strokeWidth='5'
                 width={9}
                 height={6}
-                color={!isDescend && !isRate ? "#41522E" : "#A7A7A7"}
+                color={isDescend && !isRate ? "#41522E" : "#A7A7A7"}
                 className={`${styles.arrow} ${styles.arrow_bottom}`}
               />
             </div>
@@ -98,7 +100,7 @@ function Favourites() {
         </div>
         <ScrollView style={{ maxHeight: 288 }}>
           {filteredHotels.map((hotel) => (
-            <Hotel hotel={hotel} key={hotel.hotelId} />
+            <Hotel days={days} hotel={hotel} key={hotel.hotelId} />
           ))}
         </ScrollView>
       </Layout>
