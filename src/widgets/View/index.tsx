@@ -12,7 +12,7 @@ import styles from "./styles.module.scss";
 import "moment/locale/ru";
 
 function View() {
-  const { location, checkIn } = useAppSelector(selectSearchParams);
+  const { location, checkIn, days } = useAppSelector(selectSearchParams);
   const hotels = useAppSelector(selectAllHotels);
   const favouriteHotelsCount = useAppSelector(selectFavouritesCount);
 
@@ -39,7 +39,12 @@ function View() {
         </div>
         <ScrollView style={{ maxHeight: 533 }}>
           {hotels.map((hotel) => (
-            <Hotel hotel={hotel} key={hotel.hotelId} iconSrc={hotelIcon} />
+            <Hotel
+              hotel={hotel}
+              days={days}
+              key={hotel.hotelId}
+              iconSrc={hotelIcon}
+            />
           ))}
         </ScrollView>
       </Layout>

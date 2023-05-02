@@ -2,8 +2,9 @@ export type SearchParams = {
   location: string;
   checkIn: string;
   checkOut: string;
-  currency?: string,
+  currency?: string;
   limit?: number;
+  days: number;
 };
 
 export type HotelData = {
@@ -12,3 +13,7 @@ export type HotelData = {
   stars: number;
   priceFrom: number;
 };
+
+export type ResponseData = {
+  hotels: HotelData[];
+} & Pick<SearchParams, "checkIn" | "location" | "days">;

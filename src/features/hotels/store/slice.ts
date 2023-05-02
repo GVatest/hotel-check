@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createRoutine } from "redux-saga-routines";
 import { HotelModel } from "../models";
 import moment from "moment";
-import { HotelData, SearchParams } from "../types";
+import { SearchParams, ResponseData } from "../types";
 
 const slicePrefix = "hotels";
 
@@ -25,14 +25,9 @@ const initialState: HotelsStateType = {
   days: 1,
 };
 
-type SearchData = {
-  hotels: HotelData[];
-} & Pick<HotelModel, "checkIn" | "days"> &
-  Pick<HotelsStateType, "location">;
-
 const payloadCreator = {
-  trigger: (payload: SearchParams & Pick<SearchData, "days">) => payload,
-  success: (payload: SearchData) => payload,
+  trigger: (payload: SearchParams) => payload,
+  success: (payload: ResponseData) => payload,
   request: () => ({}),
   fulfill: () => ({}),
 };
@@ -71,7 +66,7 @@ const hotelsSlice = createSlice({
       // can be speed up with usage of hashmap
       .addCase(
         search.SUCCESS,
-        (state, { payload }: PayloadAction<SearchData>) => {
+        (state, { payload }: PayloadAction<ResponseData>) => {
           const hotelsFormated = payload.hotels.map((hotel) => ({
             ...hotel,
             isFavourite: state.favourites.find(
@@ -80,7 +75,6 @@ const hotelsSlice = createSlice({
               ? true
               : false,
             checkIn: state.checkIn,
-            days: state.days,
           }));
           state.all = hotelsFormated;
           state.location = payload.location;
