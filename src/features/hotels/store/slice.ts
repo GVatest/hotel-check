@@ -8,6 +8,7 @@ const slicePrefix = "hotels";
 
 type HotelsStateType = {
   all: HotelModel[];
+  favourites: HotelModel[];
   isLoading: boolean;
   location: string;
   checkIn: string;
@@ -17,6 +18,7 @@ type HotelsStateType = {
 
 const initialState: HotelsStateType = {
   all: [],
+  favourites: [],
   isLoading: false,
   location: "Москва",
   checkIn: moment().format("YYYY-MM-DD"),
@@ -41,12 +43,24 @@ const hotelsSlice = createSlice({
   name: slicePrefix,
   initialState: initialState,
   reducers: {
-    toggleFavourite: (state, action: PayloadAction<HotelModel>) => {
-      state.all = state.all.map((elem) =>
-        elem.hotelId === action.payload.hotelId
-          ? { ...elem, isFavourite: !action.payload.isFavourite }
-          : elem
+    toggleFavourite: (state, { payload }: PayloadAction<HotelModel>) => {
+      const favouritesFiltered = state.favourites.filter(
+        (hotel) => hotel.hotelId !== payload.hotelId
       );
+      console.log(favouritesFiltered);
+      if (favouritesFiltered.length === state.favourites.length) {
+        state.favourites.unshift({ ...payload, isFavourite: true });
+      } else {
+        state.favourites = favouritesFiltered;
+      }
+
+      state.all.map((hotel) => {
+        hotel.hotelId === payload.hotelId
+          ? (hotel.isFavourite = !hotel.isFavourite)
+          : hotel;
+
+        return hotel;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -54,12 +68,17 @@ const hotelsSlice = createSlice({
       .addCase(search.REQUEST, (state) => {
         state.isLoading = true;
       })
+      // can be speed up with usage of hashmap
       .addCase(
         search.SUCCESS,
         (state, { payload }: PayloadAction<SearchData>) => {
           const hotelsFormated = payload.hotels.map((hotel) => ({
             ...hotel,
-            isFavourite: false,
+            isFavourite: state.favourites.find(
+              (hotelFav) => hotelFav.hotelId === hotel.hotelId
+            )
+              ? true
+              : false,
             checkIn: state.checkIn,
             days: state.days,
           }));
@@ -77,11 +96,10 @@ const hotelsSlice = createSlice({
   },
 });
 
-export const selectFavouriteHotels = (state: RootState) =>
-  state.hotels.all.filter((hotel) => hotel.isFavourite === true);
-export const selectFavouriteHotelsCount = (state: RootState) =>
-  state.hotels.all.filter((hotel) => hotel.isFavourite === true).length;
 export const selectAllHotels = (state: RootState) => state.hotels.all;
+export const selectFavourites = (state: RootState) => state.hotels.favourites;
+export const selectFavouritesCount = (state: RootState) =>
+  state.hotels.favourites.length;
 export const selectSearchParams = (state: RootState) => ({
   location: state.hotels.location,
   checkIn: state.hotels.checkIn,

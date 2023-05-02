@@ -1,5 +1,5 @@
 import { useAppSelector } from "app/store/hooks";
-import { selectFavouriteHotels } from "features";
+import { selectFavourites } from "features";
 import { ReactComponent as Arrow } from "assets/icons/arrow-right.svg";
 import { useMemo, useState } from "react";
 import { Layout } from "shared";
@@ -8,7 +8,7 @@ import { ScrollView } from "shared";
 import styles from "./styles.module.scss";
 
 function Favourites() {
-  const hotels = useAppSelector(selectFavouriteHotels);
+  const hotels = useAppSelector(selectFavourites);
   const [isRate, setIsRate] = useState(true);
   const [isDescend, setIsDescend] = useState(true);
 

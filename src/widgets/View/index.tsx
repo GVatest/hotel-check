@@ -1,7 +1,7 @@
 import { useAppSelector } from "app/store/hooks";
 import {
   selectAllHotels,
-  selectFavouriteHotelsCount,
+  selectFavouritesCount,
   selectSearchParams,
 } from "features";
 import { Hotel, Slider } from "entities";
@@ -14,7 +14,7 @@ import "moment/locale/ru";
 function View() {
   const { location, checkIn } = useAppSelector(selectSearchParams);
   const hotels = useAppSelector(selectAllHotels);
-  const favouriteHotelsCount = useAppSelector(selectFavouriteHotelsCount);
+  const favouriteHotelsCount = useAppSelector(selectFavouritesCount);
 
   return (
     <section className={styles.view}>
@@ -22,7 +22,7 @@ function View() {
         <div className={styles.header}>
           <div className={styles.header__item}>
             <h2>Отели</h2>
-            <Arrow strokeWidth="2" />
+            <Arrow strokeWidth='2' />
             <h2>{location}</h2>
           </div>
           <div className={styles.header__item}>
@@ -37,7 +37,7 @@ function View() {
           </span>{" "}
           {`${getNoun(favouriteHotelsCount, "отель", "отеля", "отелей")}`}
         </div>
-        <ScrollView style={{maxHeight: 533}}>
+        <ScrollView style={{ maxHeight: 533 }}>
           {hotels.map((hotel) => (
             <Hotel hotel={hotel} key={hotel.hotelId} iconSrc={hotelIcon} />
           ))}
